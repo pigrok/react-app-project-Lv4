@@ -94,7 +94,7 @@ const List = () => {
                     &nbsp;
                     {post.category}
                   </CategoryWriterFont>
-                  <CategoryWriterFont>{post.writer}</CategoryWriterFont>
+                  <CategoryWriterFont>by.{post.writer}</CategoryWriterFont>
                 </CategoryWriter>
                 <Title>
                   <TitleFont>{post.title}</TitleFont>

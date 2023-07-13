@@ -145,19 +145,7 @@ function Review() {
             return (
               <ReviewWrapper key={review.id}>
                 <ReviewItem>
-                  {isEditMode ? (
-                    <>
-                      <Writer>작성자: {review.writer}</Writer>
-                      <EditTitleTextarea
-                        value={editedWriter}
-                        onChange={(e) => {
-                          editedWriterChangeHandler(e.target.value);
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <Writer>작성자: {review.writer}</Writer>
-                  )}
+                  <Writer>by.{review.writer}</Writer>
                   <br />
                   {isEditMode ? (
                     <Contents>
@@ -271,12 +259,6 @@ const Writer = styled.p`
 
 const Contents = styled.p`
   word-wrap: break-word;
-`;
-
-const EditTitleTextarea = styled.textarea`
-  width: 30%;
-  height: 30px;
-  resize: vertical;
 `;
 
 const EditReviewTextarea = styled.textarea`

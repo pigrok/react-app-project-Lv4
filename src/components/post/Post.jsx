@@ -132,19 +132,7 @@ function Post() {
             )}
           </CategoryContainer>
           <div>
-            {isEditMode ? (
-              <div>
-                <p>작성자 : </p>
-                <WriterTextarea
-                  value={editedWriter}
-                  onChange={(e) => {
-                    editedWriterChangeHandler(e.target.value);
-                  }}
-                />
-              </div>
-            ) : (
-              <p>작성자 : {data.writer}</p>
-            )}
+            <p>by.{data.writer}</p>
           </div>
           <PostTitle>
             {isEditMode ? (
