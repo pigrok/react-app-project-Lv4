@@ -284,7 +284,7 @@ const ReviewFormItem = styled.div`
 `;
 
 const ReviewFormWriter = styled.label`
-  margin-right: 7px;
+  margin-right: 8px;
 `;
 
 const ReviewFormContentsTextarea = styled.textarea`
