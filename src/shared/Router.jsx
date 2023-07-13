@@ -6,7 +6,7 @@ import Layout from "../components/common/Layout";
 
 function Router() {
   return (
-    <div style={{ maxWidth: "1500px", margin: "0 auto" }}>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>

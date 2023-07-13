@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Input from "../input/Input";
+import { styled } from "styled-components";
+import Enter_Logo from "../../image/Enter.png";
 
 function ModalWrite() {
   const [modalWrite, setModalWrite] = useState(false);
@@ -9,19 +11,24 @@ function ModalWrite() {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <button onClick={() => openModal()}>글쓰기</button>
-      </div>
+    <ModalWriteContainer>
+      <EnterImg src={Enter_Logo} onClick={() => openModal()}></EnterImg>
       {modalWrite ? <Input setModalWrite={setModalWrite} /> : null}
-    </div>
+    </ModalWriteContainer>
   );
 }
 
 export default ModalWrite;
+
+const ModalWriteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EnterImg = styled.img`
+  width: 105px;
+  height: 70px;
+  padding: 5px;
+  cursor: pointer;
+`;

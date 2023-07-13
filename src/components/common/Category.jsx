@@ -6,12 +6,12 @@ function Category({ categoryChangeHandler }) {
     "음악",
     "영화",
     "먹방",
-    "브이로그",
     "IT",
     "예능",
     "동물",
     "스포츠",
     "피트니스",
+    "브이로그",
   ];
   return (
     <div>

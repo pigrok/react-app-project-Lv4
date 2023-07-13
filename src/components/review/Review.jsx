@@ -9,6 +9,8 @@ import {
   removeReview,
   editReview,
 } from "../../api/review";
+import { styled } from "styled-components";
+import Button from "../button/Button";
 
 function Review() {
   const { id } = useParams();
@@ -130,101 +132,190 @@ function Review() {
   }
 
   return (
-    <div>
+    <ReviewContainer>
       <div>
-        <form
-          style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={createReviewHandler}
-        >
-          <div>
-            <label>작성자 : </label>
-            <input
-              type="text"
-              name="writer"
-              value={writer}
-              onChange={(e) => {
-                writerChangeHanlder(e.target.value);
-              }}
-            />
-          </div>
-          <br />
-          <div>
-            <label>내용 : </label>
-            <input
-              type="text"
-              name="contents"
-              value={contents}
-              onChange={(e) => {
-                contentsChangeHanlder(e.target.value);
-              }}
-            />
-          </div>
-          <br />
-          <br />
-          <button type="submit">작성</button>
-        </form>
+        <p>댓글</p>
+        <ReviewTopLine></ReviewTopLine>
       </div>
-      <div
-        style={{ border: "1px solid black", padding: "20px", margin: "20px" }}
-      >
+      <ReviewListContainer>
         {data
           .filter((review) => review.postId === id)
           .map((review) => {
             const isEditMode = editedReviewId === review.id;
             return (
-              <div key={review.id}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
+              <ReviewWrapper key={review.id}>
+                <ReviewItem>
                   {isEditMode ? (
-                    <div>
-                      <p>작성자 : </p>
-                      <textarea
+                    <>
+                      <Writer>작성자: {review.writer}</Writer>
+                      <EditTitleTextarea
                         value={editedWriter}
                         onChange={(e) => {
                           editedWriterChangeHandler(e.target.value);
                         }}
                       />
-                    </div>
+                    </>
                   ) : (
-                    <p>작성자 : {review.writer}</p>
+                    <Writer>작성자: {review.writer}</Writer>
                   )}
                   <br />
                   {isEditMode ? (
-                    <div>
-                      <p>내용 : </p>
-                      <textarea
+                    <Contents>
+                      내용:
+                      <EditReviewTextarea
                         value={editedContents}
                         onChange={(e) => {
                           editedContentsChangeHandler(e.target.value);
                         }}
                       />
-                    </div>
+                    </Contents>
                   ) : (
-                    <p>내용 : {review.contents}</p>
+                    <Contents>내용: {review.contents}</Contents>
                   )}
-                </div>
-                <br />
-                <div style={{ display: "flex" }}>
+                </ReviewItem>
+                <Buttons>
                   {isEditMode ? (
-                    <div>
-                      <button onClick={offEditMode}>Cancel</button>
-                      <button onClick={() => editReviewHandler(review)}>
-                        Save
-                      </button>
-                    </div>
+                    <>
+                      <Button onClickEvent={offEditMode}>🔙</Button>
+                      <Button onClickEvent={() => editReviewHandler(review)}>
+                        💾
+                      </Button>
+                    </>
                   ) : (
-                    <button onClick={() => onEditMode(review)}>Edit</button>
+                    <>
+                      <Button onClickEvent={() => onEditMode(review)}>
+                        🖋️
+                      </Button>
+                      <Button onClickEvent={() => removeReviewHandler(review)}>
+                        🗑️
+                      </Button>
+                    </>
                   )}
-                  <br />
-                  <button onClick={() => removeReviewHandler(review)}>
-                    Delete
-                  </button>
-                </div>
-              </div>
+                </Buttons>
+                <ReviewMiddleLine></ReviewMiddleLine>
+              </ReviewWrapper>
             );
           })}
-      </div>
-    </div>
+      </ReviewListContainer>
+      <ReviewFormContainer>
+        <div>
+          <ReviewForm onSubmit={createReviewHandler}>
+            <ReviewFormItem>
+              <ReviewFormWriter>작성자:</ReviewFormWriter>
+              <input
+                type="text"
+                name="writer"
+                value={writer}
+                onChange={(e) => {
+                  writerChangeHanlder(e.target.value);
+                }}
+              />
+            </ReviewFormItem>
+            <ReviewFormItem>
+              <ReviewFormContentsTextarea
+                type="text"
+                name="contents"
+                value={contents}
+                onChange={(e) => {
+                  contentsChangeHanlder(e.target.value);
+                }}
+              />
+            </ReviewFormItem>
+            <Buttons>
+              <Button type="submit">⌨️</Button>
+            </Buttons>
+          </ReviewForm>
+        </div>
+      </ReviewFormContainer>
+    </ReviewContainer>
   );
 }
 
 export default Review;
+
+const ReviewTopLine = styled.div`
+  border-bottom: 1px solid #bdbdbd;
+  width: 1000px;
+  margin-bottom: 10px;
+`;
+const ReviewMiddleLine = styled.div`
+  margin-top: 20px;
+  border-bottom: 1px dashed #bdbdbd;
+`;
+
+const ReviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+`;
+
+const ReviewListContainer = styled.div`
+  width: 1000px;
+  margin-top: 20px;
+`;
+
+const ReviewWrapper = styled.div`
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+`;
+
+const ReviewItem = styled.div`
+  margin-bottom: 10px;
+`;
+
+const Writer = styled.p`
+  word-wrap: break-word;
+`;
+
+const Contents = styled.p`
+  word-wrap: break-word;
+`;
+
+const EditTitleTextarea = styled.textarea`
+  width: 30%;
+  height: 30px;
+  resize: vertical;
+`;
+
+const EditReviewTextarea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  overflow: auto;
+  resize: vertical;
+`;
+
+const ReviewFormContainer = styled.div`
+  width: 1000px;
+  margin: 0 0 50px 0;
+`;
+
+const ReviewForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ReviewFormItem = styled.div`
+  margin: 20px 0 10px 0;
+  padding: 6px;
+`;
+
+const ReviewFormWriter = styled.label`
+  margin-right: 7px;
+`;
+
+const ReviewFormContentsTextarea = styled.textarea`
+  width: 980px;
+  height: 100px;
+
+  overflow: auto;
+  resize: vertical;
+  word-wrap: break-word;
+`;
+
+const Buttons = styled.div`
+  justify-content: flex-end;
+  display: flex;
+  margin-right: 5px;
+`;

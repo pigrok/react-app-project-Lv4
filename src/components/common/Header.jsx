@@ -1,35 +1,29 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import ALT_Logo from "../../image/ALT.png";
+import { styled } from "styled-components";
 
 function Header() {
-  const navigate = useNavigate();
-
-  const navHomePage = () => {
-    navigate("/");
+  const reloadHome = () => {
+    window.location.replace("/");
   };
-  return (
-    <div>
-      <button onClick={navHomePage}>Home</button>
-      <div
-        style={{
-          margin: "50px 0 50px 0",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
 
-          fontSize: "40px",
-        }}
-      >
-        <div>
-          <h1>
-            {" "}
-            AL<span style={{ fontSize: "30px" }}>gorithm</span> T
-            <span style={{ fontSize: "30px" }}>rends</span>
-          </h1>
-        </div>
-      </div>
-    </div>
+  return (
+    <>
+      <LogoImg src={ALT_Logo} onClick={reloadHome}></LogoImg>
+      <HeaderLine></HeaderLine>
+    </>
   );
 }
 
 export default Header;
+
+const LogoImg = styled.img`
+  width: 105px;
+  height: 70px;
+  padding: 5px;
+  cursor: pointer;
+`;
+
+const HeaderLine = styled.div`
+  border-bottom: 1px solid #bdbdbd;
+`;
