@@ -33,7 +33,7 @@ function Post() {
     },
   });
 
-  // 삭제
+  // 삭제 핸들러
   const removePostHandler = async (post) => {
     const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
     if (confirmDelete) {
@@ -45,7 +45,7 @@ function Post() {
     }
   };
 
-  // 수정
+  // 수정 핸들러
   const editPostHandler = async (post) => {
     const editedPost = {
       ...post,
@@ -203,7 +203,7 @@ function Post() {
             <>
               {" "}
               <Button onClickEvent={() => enterEditMode(data)}>🖋️</Button>
-              <Button onClickEvent={removePostHandler}>🗑️</Button>
+              <Button onClickEvent={() => removePostHandler(data)}>🗑️</Button>
             </>
           )}
           <br />

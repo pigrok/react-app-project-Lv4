@@ -135,7 +135,7 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(0.2rem);
+  backdrop-filter: blur(0.1em);
 `;
 
 const ModalWrapper = styled.div`
